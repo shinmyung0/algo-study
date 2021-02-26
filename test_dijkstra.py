@@ -10,36 +10,6 @@ def init_shortest_paths(n, source_node):
     return shortest_paths
 
 
-def get_next_unvisited(visited, shortest_paths):
-    """
-    Simple linear search to return next unvisited node with shortest path value
-    If none exist, will return None
-
-    CAN BE OPTIMIZED
-    """
-    min_dist = math.inf
-    min_node = None
-    for node_id in shortest_paths:
-        dist = shortest_paths[node_id][0]
-        if dist < min_dist and visited[node_id] == False:
-            min_dist = dist
-            min_node = node_id
-    return min_node
-
-
-def get_neighbors(adj_matrix, node_id):
-    """
-    Return list of indices with positive weights
-
-    CAN BE OPTIMIZED
-    """
-    result = []
-    for i in range(len(adj_matrix[node_id])):
-        if adj_matrix[node_id][i] > 0:
-            result.append(i)
-    return result
-
-
 def dijkstra(adj_matrix, source_node):
     """
     Given adj_matrix and starting source node
