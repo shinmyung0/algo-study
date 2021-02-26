@@ -22,12 +22,14 @@ source node entry should be (0, None)
 all other node distances should be set to (infinity, None)
 
 while there are unvisited nodes:
-    get the current next node to visit
+    get the current next node to visit based on lowest distance
     get the curr node neighbors
     for each neighbor
         calculate the total distance by adding entry in shortest path table and edge weight between the nodes
         if the new distance is less than the current entry
             update the shortest paths table = (new dist, curr_node)
+    
+    mark current node as visited
     
 return shortest paths table
 
