@@ -65,6 +65,10 @@ def shortest_path_str(source_node, dest_node, path_table):
     return result
 
 
+def shortest_path_dist(dest_node, path_table):
+    return path_table[dest_node][0]
+
+
 def test_dijkstra():
 
     test_matrix = [[0, 1, 3, 0], [0, 0, 1, 5], [0, 0, 0, 1], [0, 0, 0, 0]]
@@ -72,7 +76,7 @@ def test_dijkstra():
     dest_node = 3
     shortest_paths_table = dijkstra(test_matrix, start_node)
 
-    result = shortest_paths_table[dest_node][0]
+    result = shortest_path_dist(dest_node, shortest_paths_table)
 
     assert result == 3
     result = shortest_path_str(0, 3, shortest_paths_table)
