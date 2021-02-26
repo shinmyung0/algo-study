@@ -10,6 +10,36 @@ def init_shortest_paths(n, source_node):
     return shortest_paths
 
 
+def get_next_unvisited(visited, shortest_paths):
+    """
+    Simple linear search to return next unvisited node with shortest path value
+    If none exist, will return None
+
+    CAN BE OPTIMIZED
+    """
+    min_dist = math.inf
+    min_node = None
+    for node_id in shortest_paths:
+        dist = shortest_paths[node_id][0]
+        if dist < min_dist and visited[node_id] == False:
+            min_dist = dist
+            min_node = node_id
+    return min_node
+
+
+def get_neighbors(adj_matrix, node_id):
+    """
+    Return list of indices with positive weights
+
+    CAN BE OPTIMIZED
+    """
+    result = []
+    for i in range(len(adj_matrix[node_id])):
+        if adj_matrix[node_id][i] > 0:
+            result.append(i)
+    return result
+
+
 def dijkstra(adj_matrix, source_node):
     """
     Given adj_matrix and starting source node
@@ -18,6 +48,25 @@ def dijkstra(adj_matrix, source_node):
     # init shortest paths table and unvisited table
     N = len(adj_matrix)
     shortest_paths = init_shortest_paths(N, source_node)
+
+    visited = [False] * N
+
+    # while there are still unvisited nodes
+    while False in visited:
+        curr_node = get_next_unvisited(visited, shortest_paths)
+        curr_dist = shortest_paths[curr_node][0]
+        neighbors = get_neighbors(adj_matrix, curr_node)
+        # for each neighbor
+
+        for n in neighbors:
+            edge_weight = adj_matrix[curr_node][n]
+            # if the curr_dist + weight is less than what's
+            # already in the shortest path entries for that neighbor
+            # then update the shortest path entry value
+            curr_entry = shortest_paths[n][0]
+            if curr_dist + edge_weight < curr_entry:
+                shortest_paths[n] = (curr_dist + edge_weight, curr_node)
+        visited[curr_node] = True
 
     return shortest_paths
 
